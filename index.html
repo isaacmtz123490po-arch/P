@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gmail Variation Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icon.png">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Firebase (Compat Version) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="icon.png" alt="Logo" height="40">
+                <h1>Gmail Variations</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#" onclick="showPage('home')" id="homeLink" class="active">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#" onclick="showPage('login')" id="loginLink">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="#" onclick="showPage('register')" id="registerLink">
+                    <i class="fas fa-user-plus"></i> Register
+                </a>
+                <button id="logoutBtn" class="btn-logout" onclick="logout()" style="display:none">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+            <button id="themeToggle" title="Toggle Theme">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Pages -->
+    <main id="pageContainer">
+        <!-- ===== HOME PAGE ===== -->
+        <section id="homePage" class="page active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="hero-content">
+                    <h1><i class="fas fa-mail-bulk"></i> Gmail Variation Generator</h1>
+                    <p class="hero-text">Create unlimited email variations from a single Gmail address using dot (.) and
+                        plus (+) tricks</p>
+                    <div class="cta-buttons">
+                        <button class="btn-primary" onclick="showPage('register')">
+                            <i class="fas fa-rocket"></i> Get Started Free
+                        </button>
+                        <button class="btn-secondary" onclick="showPage('login')">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="email-demo">
+                        <div class="input-demo">hello@gmail.com</div>
+                        <div class="arrow"><i class="fas fa-long-arrow-alt-down"></i></div>
+                        <div class="output-demo">
+                            <span>h.ello@gmail.com</span>
+                            <span>he.llo@gmail.com</span>
+                            <span>hello+work@gmail.com</span>
+                            <span>hello+shop@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Cards -->
+            <div class="section-title">
+                <h2><i class="fas fa-star"></i> Why Choose Our Tool</h2>
+                <p>Everything you need for email management</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Fast Generation</h3>
+                    <p>Generate thousands of variations in seconds with our optimized algorithm.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>100% Secure</h3>
+                    <p>Firebase Authentication keeps your data safe. No email storage.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Works perfectly on all devices - desktop, tablet, and mobile.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Unlimited Variations</h3>
+                    <p>No limits on how many variations you can generate.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Save</h3>
+                    <p>Save your variations to cloud and access from anywhere.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Dark/Light Mode</h3>
+                    <p>Choose your preferred theme for comfortable usage.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-copy"></i>
+                    </div>
+                    <h3>Easy Copy</h3>
+                    <p>Copy single or all variations with one click.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Clean Code</h3>
+                    <p>Well-commented, readable code that's easy to customize.</p>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="section-title">
+                <h2><i class="fas fa-play-circle"></i> How It Works</h2>
+                <p>Simple 3-step process</p>
+            </div>
+
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Register Account</h3>
+                    <p>Create your free account with email and password.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Enter Gmail</h3>
+                    <p>Type your Gmail address in the generator.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Generate & Copy</h3>
+                    <p>Get all variations and copy with one click.</p>
+                </div>
+            </div>
+
+            <!-- Use Cases -->
+            <div class="section-title">
+                <h2><i class="fas fa-lightbulb"></i> Practical Uses</h2>
+                <p>How people use this tool</p>
+            </div>
+
+            <div class="use-cases">
+                <div class="use-case">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h4>Online Shopping</h4>
+                    <p>Use different variations for different stores.</p>
+                </div>
+                <div class="use-case">
+                    <i class="fas fa-envelope-open-text"></i>
+                    <h4>Newsletters</h4>
+                    <p>Track which service shares your email.</p>
+                </div>
+                <div class="use-case">
+                    <i class="fas fa-user-secret"></i>
+                    <h4>Privacy</h4>
+                    <p>Protect your main email from spam.</p>
+                </div>
+                <div class="use-case">
+                    <i class="fas fa-vial"></i>
+                    <h4>Testing</h4>
+                    <p>Test email functionality with variations.</p>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats">
+                <div class="stat">
+                    <h3>10,000+</h3>
+                    <p>Variations Generated</p>
+                </div>
+                <div class="stat">
+                    <h3>100%</h3>
+                    <p>Free Forever</p>
+                </div>
+                <div class="stat">
+                    <h3>24/7</h3>
+                    <p>Available</p>
+                </div>
+                <div class="stat">
+                    <h3>0$</h3>
+                    <p>Total Cost</p>
+                </div>
+            </div>
+
+            <!-- Final CTA -->
+            <div class="final-cta">
+                <h2>Ready to Generate Your Variations?</h2>
+                <p>Join thousands of users who manage their emails smarter</p>
+                <button class="btn-primary btn-large" onclick="showPage('register')">
+                    <i class="fas fa-user-plus"></i> Create Free Account
+                </button>
+                <p class="small-text">No credit card required. No hidden fees.</p>
+            </div>
+        </section>
+
+        <!-- ===== LOGIN PAGE ===== -->
+        <section id="loginPage" class="page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <h2><i class="fas fa-sign-in-alt"></i> Welcome Back</h2>
+                        <p>Login to access your dashboard</p>
+                    </div>
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="loginEmail" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                            <button type="button" class="show-password" onclick="togglePassword('loginPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <button type="submit" class="btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" onclick="showPage('register')">Register here</a></p>
+                        <p><a href="#" onclick="showForgotPassword()">Forgot password?</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REGISTER PAGE ===== -->
+        <section id="registerPage" class="page">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+                        <p>Join for free and start generating</p>
+                    </div>
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="registerName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="registerEmail" placeholder="you@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="registerPassword" placeholder="At least 6 characters" required>
+                            <button type="button" class="show-password" onclick="togglePassword('registerPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Confirm Password</label>
+                            <input type="password" id="confirmPassword" placeholder="Re-type password" required>
+                        </div>
+                        <button type="submit" class="btn-primary btn-block">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </form>
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" onclick="showPage('login')">Login here</a></p>
+                        <p class="terms">By registering, you agree to our <a href="#">Terms of Service</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== DASHBOARD PAGE ===== -->
+        <section id="dashboardPage" class="page">
+            <div class="dashboard">
+                <!-- Welcome -->
+                <div class="welcome-box">
+                    <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                    <p>Welcome back, <span id="userName">User</span>! (<span
+                            id="userEmailDisplay">email@example.com</span>)</p>
+                </div>
+
+                <!-- Generator -->
+                <div class="generator-box">
+                    <h3><i class="fas fa-magic"></i> Generate Variations</h3>
+
+                    <div class="input-box">
+                        <input type="email" id="gmailInput" placeholder="Enter your Gmail (example@gmail.com)"
+                            autofocus>
+                        <button class="btn-primary" onclick="generateVariations()">
+                            <i class="fas fa-bolt"></i> Generate
+                        </button>
+                    </div>
+
+                    <div class="options-box">
+                        <label class="option">
+                            <input type="checkbox" id="includeDot" checked>
+                            <span class="checkmark"></span>
+                            <i class="fas fa-dot-circle"></i> Dot Variations
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" id="includePlus" checked>
+                            <span class="checkmark"></span>
+                            <i class="fas fa-plus-circle"></i> Plus Variations
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" id="removeDuplicates" checked>
+                            <span class="checkmark"></span>
+                            <i class="fas fa-filter"></i> Remove Duplicates
+                        </label>
+                    </div>
+
+                    <!-- Results -->
+                    <div class="results-header">
+                        <h4><i class="fas fa-list"></i> Generated Variations (<span id="totalCount">0</span>)</h4>
+                        <div class="result-actions">
+                            <button id="copyAllBtn" class="btn-secondary" onclick="copyAll()" disabled>
+                                <i class="fas fa-copy"></i> Copy All
+                            </button>
+                            <button class="btn-outline" onclick="clearResults()">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="results-box" id="resultsContainer">
+                        <div id="emptyState" class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>No variations generated yet</p>
+                            <p class="small">Enter a Gmail address and click Generate</p>
+                        </div>
+                        <div id="resultsList" class="results-list"></div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="action-buttons">
+                        <button class="btn-action" onclick="saveToLocal()">
+                            <i class="fas fa-save"></i> Save Local
+                        </button>
+                        <button class="btn-action" onclick="loadLast()">
+                            <i class="fas fa-history"></i> Load Last
+                        </button>
+                        <button class="btn-action" onclick="showStats()">
+                            <i class="fas fa-chart-bar"></i> Stats
+                        </button>
+                        <button class="btn-action btn-cloud" onclick="saveToCloud()">
+                            <i class="fas fa-cloud-upload-alt"></i> Save Cloud
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quick Tips -->
+                <div class="tips-box">
+                    <h3><i class="fas fa-lightbulb"></i> Pro Tips</h3>
+                    <ul class="tips-list">
+                        <li>All variations deliver to your original Gmail inbox</li>
+                        <li>Use plus (+) tags to filter emails (e.g., hello+shop@gmail.com)</li>
+                        <li>Press <kbd>Enter</kbd> after typing email to generate</li>
+                        <li>Save frequently used emails for quick access</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4><i class="fas fa-envelope"></i> Gmail Variation Generator</h4>
+                <p>Create unlimited email variations for free</p>
+            </div>
+            <div class="footer-section">
+                <h4>Links</h4>
+                <a href="#" onclick="showPage('home')">Home</a>
+                <a href="#" onclick="showPage('login')">Login</a>
+                <a href="#" onclick="showPage('register')">Register</a>
+            </div>
+            <div class="footer-section">
+                <h4>Built With</h4>
+                <p>HTML, CSS, JavaScript</p>
+                <p>Firebase Authentication</p>
+                <p>SweetAlert2</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="currentYear">2024</span> Gmail Variation Generator | Made with <i class="fas fa-heart"></i>
+                for developers</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="firebase.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
